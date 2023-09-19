@@ -3,7 +3,7 @@ const pizza = {
     ingredientes: []
 };
 
-pizza.masa = prompt("¿Qué masa de pizza deseas? (Delgada, Tradicional o Integral)");
+pizza.masa = prompt("Hola, bienvenido a Crea tu pizza ¿Qué masa de pizza deseas? (Delgada, Tradicional o Integral)");
 
 while (true) {
     const ingrediente = prompt("Agrega un ingrediente a tu pizza (o escribe 'listo' para terminar):");
