@@ -3,6 +3,12 @@ const pizza = {
     ingredientes: []
 };
 
+const pizzaJSON = JSON.stringify(pizza);
+
+const pizzaInfoElement = document.getElementById("pizzaInfo");
+
+const pizzaObj = JSON.parse(pizzaJSON);
+
 // Definir precios de los ingredientes
 const preciosIngredientes = {
     pepperoni: 2.5,
@@ -47,12 +53,14 @@ while (true) {
 }
 
 let mensajePizza = "¡Aquí está tu pizza!\n";
-mensajePizza += "Masa de pizza: " + pizza.masa + "\n";
+
+mensajePizza += `Masa de pizza: ${pizza.masa}\n`;
+
 mensajePizza += "Ingredientes:\n";
 for (let i = 0; i < pizza.ingredientes.length; i++) {
     mensajePizza += `- ${pizza.ingredientes[i].cantidad} ${pizza.ingredientes[i].ingrediente} - $${pizza.ingredientes[i].costoIngrediente.toFixed(2)}\n`;
 }
+
 mensajePizza += `El valor de tu pizza es: $${total.toFixed(2)}`;
 
-alert(mensajePizza);
-
+pizzaInfoElement.textContent = mensajePizza;
