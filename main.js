@@ -24,27 +24,25 @@ const preciosIngredientes = {
     extraqueso: 2.0,
 };
 
-pizza.masa = prompt("Hola, bienvenido a Crea tu pizza ¿Qué masa de pizza deseas? (Delgada, Tradicional o Integral)");
+const pizza1 = {
+    masa: prompt("Hola, bienvenido a Crea tu pizza ¿Qué masa de pizza deseas? (Delgada, Tradicional o Integral)"),
+    ingredientes: [],
+};
 
 let total = 0;
 
 while (true) {
-    const ingrediente = prompt("Agrega uno o más ingredientes a tu pizza (o escribe 'listo' para terminar), los ingredientes y sus valores son los siguientes:  pepperoni  $2.5,     champiñones  $1.5,   jamón  $2.0,   pimientos  $1.0,   cebolla  $1.0,   aceitunas  $1.5   choclo  $1.0,  tomate  $1.0,  carne  $2.0,  pollo  $2.0,    y   extraqueso  $2.0")
-    
+    const ingrediente = prompt("Agrega uno o más ingredientes a tu pizza (o escribe 'listo' para terminar), los ingredientes y sus valores son los siguientes:  pepperoni $2.5, champiñones $1.5, jamón $2.0, pimientos $1.0, cebolla $1.0, aceitunas $1.5, choclo $1.0, tomate $1.0, carne $2.0, pollo $2.0, y extraqueso $2.0");
+
     if (ingrediente.toLowerCase() === "listo") {
         break;
     }
-    
-    if (preciosIngredientes.hasOwnProperty(ingrediente.toLowerCase())) {
-        const cantidad = parseInt(prompt(`¿Cuánta cantidad de ${ingrediente} deseas agregar?`));
-        if (isNaN(cantidad)) {
-            alert("Por favor, ingresa una cantidad válida.");
-            continue;
-        }
-        
-        const precioIngrediente = preciosIngredientes[ingrediente.toLowerCase()];
-        const costoIngrediente = precioIngrediente * cantidad;
-        
+
+    const cantidad = parseInt(prompt(`¿Cuánta cantidad de ${ingrediente} deseas agregar?`));
+    const precioIngrediente = preciosIngredientes[ingrediente.toLowerCase()] || 0;
+    const costoIngrediente = precioIngrediente * (isNaN(cantidad) ? 0 : cantidad);
+
+    if (costoIngrediente > 0) {
         pizza.ingredientes.push({ ingrediente, cantidad, costoIngrediente });
         total += costoIngrediente;
     } else {
@@ -52,9 +50,10 @@ while (true) {
     }
 }
 
-let mensajePizza = "¡Aquí está tu pizza!\n";
+const { masa, ingredientes } = pizza;
 
-mensajePizza += `Masa de pizza: ${pizza.masa}\n`;
+const mensajePizza = `¡Aquí está tu pizza!\nMasa de pizza: ${masa}\nIngredientes:\n${ingredientes.map(ing => `- ${ing.cantidad} ${ing.ingrediente} - $${ing.costoIngrediente.toFixed(2)}`).join('\n')}\nEl valor de tu pizza es: $${total.toFixed(2)}`;
+alert(mensajePizza);
 
 mensajePizza += "Ingredientes:\n";
 for (let i = 0; i < pizza.ingredientes.length; i++) {
